@@ -1,23 +1,23 @@
 package com.example.wavhuffmancompress;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 public class HuffmanTree {
-    public static HashMap<Byte, String> buildHuffmanCodes(byte[] data) {
-        Map<Byte, Integer> frequencyMap = new HashMap<>();
+    public static HashMap<Integer, String> buildHuffmanCodes(int[] data) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
 
         // Calculate byte frequencies
-        for (byte b : data) {
+        for (int b : data) {
             frequencyMap.put(b, frequencyMap.getOrDefault(b, 0) + 1);
         }
 
         PriorityQueue<HuffmanNode> minHeap = new PriorityQueue<>();
 
         // Create a priority queue of Huffman nodes
-        for (Map.Entry<Byte, Integer> entry : frequencyMap.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
             minHeap.add(new HuffmanNode(entry.getKey(), entry.getValue()));
         }
 
@@ -25,20 +25,20 @@ public class HuffmanTree {
         while (minHeap.size() > 1) {
             HuffmanNode left = minHeap.poll();
             HuffmanNode right = minHeap.poll();
-            HuffmanNode merged = new HuffmanNode((byte) 0, left.frequency + right.frequency);
+            HuffmanNode merged = new HuffmanNode((byte) 0, left.frequency + Objects.requireNonNull(right).frequency);
             merged.left = left;
             merged.right = right;
             minHeap.add(merged);
         }
 
         // Create Huffman codes
-        HashMap<Byte, String> huffmanCodes = new HashMap<>();
+        HashMap<Integer, String> huffmanCodes = new HashMap<>();
         generateHuffmanCodes(minHeap.peek(), "", huffmanCodes);
 
         return huffmanCodes;
     }
 
-    private static void generateHuffmanCodes(HuffmanNode node, String code, Map<Byte, String> huffmanCodes) {
+    private static void generateHuffmanCodes(HuffmanNode node, String code, Map<Integer, String> huffmanCodes) {
         if (node == null) {
             return;
         }

@@ -1,11 +1,11 @@
 package com.example.wavhuffmancompress;
 
 public class HuffmanNode implements Comparable<HuffmanNode> {
-    byte data;
+    int data;
     int frequency;
     HuffmanNode left, right;
 
-    public HuffmanNode(byte data, int frequency) {
+    public HuffmanNode(int data, int frequency) {
         this.data = data;
         this.frequency = frequency;
     }

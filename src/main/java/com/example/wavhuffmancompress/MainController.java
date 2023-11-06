@@ -25,13 +25,7 @@ public class MainController {
     private Button resetBtn;
 
     @FXML
-    private Pane leftChannelPane;
-
-    @FXML
     private Canvas leftChannel;
-
-    @FXML
-    private Pane rightChannelPane;
 
     @FXML
     private Canvas rightChannel;
@@ -42,15 +36,9 @@ public class MainController {
     @FXML
     private Text acwLength;
 
-    @FXML
-    private Text channel1;
-
-    @FXML
-    private Text channel2;
-
     private int NUM_POINTS = 500;
 
-    private byte[] data;
+    private int[] data;
 
     public void importButtonAction(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -62,8 +50,8 @@ public class MainController {
 
         if (selectedFile != null) {
             processWavFile(selectedFile);
-            HashMap<Byte, String> huffmanCodes = HuffmanTree.buildHuffmanCodes(data);
-            HashMap<Byte, Double> probabilityDistribution = calculateProbabilityDistribution(data);
+            HashMap<Integer, String> huffmanCodes = HuffmanTree.buildHuffmanCodes(data);
+            HashMap<Integer, Double> probabilityDistribution = calculateProbabilityDistribution(data);
 
             double entropyValue = calculateEntropy(probabilityDistribution);
             entropy.setText("Entropy: " + String.format("%.4f", entropyValue));
@@ -105,7 +93,6 @@ public class MainController {
 
             // Split audio into left and right channels
             int bytesPerFrame = audioFormat.getFrameSize();
-            int bytesPerChannel = bytesPerFrame / 2;
             int bufferSize = totalSamples * bytesPerFrame;
 
             byte[] leftChannelData = new byte[bufferSize / 2];
@@ -113,7 +100,7 @@ public class MainController {
 
             byte[] audioData = new byte[bufferSize];
             int bytesRead = audioInputStream.read(audioData);
-            this.data = audioData;
+            this.data = bytesToInts(audioData);
 
             for (int i = 0; i < bytesRead / 2; i = i + 2) {
 
@@ -218,29 +205,29 @@ public class MainController {
         return maxRMS;
     }
 
-    private HashMap<Byte, Double> calculateProbabilityDistribution(byte[] data) {
-        HashMap<Byte, Integer> frequencyMap = new HashMap<>();
+    private HashMap<Integer, Double> calculateProbabilityDistribution(int[] data) {
+        HashMap<Integer, Integer> frequencyMap = new HashMap<>();
 
         // Calculate byte frequencies
-        for (byte b : data) {
+        for (int b : data) {
             frequencyMap.put(b, frequencyMap.getOrDefault(b, 0) + 1);
         }
 
         int totalBytes = data.length;
-        HashMap<Byte, Double> probabilityDistribution = new HashMap<>();
+        HashMap<Integer, Double> probabilityDistribution = new HashMap<>();
 
         // Calculate probabilities
-        for (Map.Entry<Byte, Integer> entry : frequencyMap.entrySet()) {
-            byte byteValue = entry.getKey();
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            Integer value = entry.getKey();
             int frequency = entry.getValue();
             double probability = (double) frequency / totalBytes;
-            probabilityDistribution.put(byteValue, probability);
+            probabilityDistribution.put(value, probability);
         }
 
         return probabilityDistribution;
     }
 
-    private double calculateEntropy(Map<Byte, Double> probabilityDistribution) {
+    private double calculateEntropy(Map<Integer, Double> probabilityDistribution) {
         double entropy = 0.0;
         for (double probability : probabilityDistribution.values()) {
             if (probability > 0) {
@@ -250,66 +237,14 @@ public class MainController {
         return -entropy;
     }
 
-    private double calculateAverageCodeWordLength(Map<Byte, Double> probabilityDistribution, Map<Byte, String> huffmanCodes) {
+    private double calculateAverageCodeWordLength(Map<Integer, Double> probabilityDistribution, Map<Integer, String> huffmanCodes) {
         double averageCodeWordLength = 0.0;
-        for (Byte byteValue : probabilityDistribution.keySet()) {
-            double probability = probabilityDistribution.get(byteValue);
-            String codeWord = huffmanCodes.get(byteValue);
+        for (Integer value : probabilityDistribution.keySet()) {
+            double probability = probabilityDistribution.get(value);
+            String codeWord = huffmanCodes.get(value);
             int codeWordLength = codeWord.length();
             averageCodeWordLength += probability * codeWordLength;
         }
         return averageCodeWordLength;
     }
-
-//    private void updateUIWithHuffmanInfo(Map<Byte, Integer> frequencyCounts, HuffmanNode huffmanTree) {
-//        double entropyValue = calculateEntropy(frequencyCounts, huffmanTree);
-//        double acwLengthValue = calculateAverageCodeWordLength(frequencyCounts, huffmanTree);
-//
-//        entropy.setText("Entropy: " + entropyValue);
-//        acwLength.setText("Average code word length: " + acwLengthValue);
-//    }
-
-//    private double calculateEntropy(Map<Byte, Integer> frequencyCounts, HuffmanNode huffmanTree) {
-//        double entropy = 0.0;
-//        int totalSamples = data.length;
-//
-//        for (byte symbol : frequencyCounts.keySet()) {
-//            double probability = (double) frequencyCounts.get(symbol) / totalSamples;
-//            double log2Probability = Math.log(1 / probability) / Math.log(2);
-//            entropy += probability * log2Probability;
-//        }
-//
-//        return entropy;
-//    }
-//
-//    private double calculateAverageCodeWordLength(Map<Byte, Integer> frequencyCounts, HuffmanNode huffmanTree) {
-//        double totalWeightedLength = 0.0;
-//        int totalFrequency = 0;
-//
-//        for (byte symbol : frequencyCounts.keySet()) {
-//            int frequency = frequencyCounts.get(symbol);
-//            int codeWordLength = getHuffmanCodeWordLength(huffmanTree, symbol, 0);
-//            totalWeightedLength += (frequency * codeWordLength);
-//            totalFrequency += frequency;
-//        }
-//
-//        return (double) totalWeightedLength / totalFrequency;
-//    }
-//
-//    private int getHuffmanCodeWordLength(HuffmanNode node, byte symbol, int lengthSoFar) {
-//        if (node == null) {
-//            return 0; // Symbol not found
-//        }
-//        if (node.symbol == symbol) {
-//            return lengthSoFar;
-//        }
-//
-//        int leftLength = getHuffmanCodeWordLength(node.left, symbol, lengthSoFar + 1);
-//        if (leftLength != 0) {
-//            return leftLength;
-//        }
-//
-//        int rightLength = getHuffmanCodeWordLength(node.right, symbol, lengthSoFar + 1);
-//        return rightLength;
-//    }
 }

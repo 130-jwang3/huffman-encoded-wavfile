@@ -4,26 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d8067e1-b85e-4939-8ab1-8621eb8f627d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/HuffmanNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/HuffmanTree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/wavhuffmancompress/MainView.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/wavhuffmancompress/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/wavhuffmancompress/style.css" afterDir="false" />
+    <list default="true" id="6d8067e1-b85e-4939-8ab1-8621eb8f627d" name="Changes" comment="huffman encoded wav file">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/HuffmanNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/HuffmanNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/HuffmanTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/HuffmanTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/wavhuffmancompress/MainController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,8 +83,16 @@
       <updated>1698434887023</updated>
       <workItem from="1698434888118" duration="3874000" />
       <workItem from="1698536703733" duration="30000" />
-      <workItem from="1699251362050" duration="7531000" />
+      <workItem from="1699251362050" duration="8200000" />
     </task>
+    <task id="LOCAL-00001" summary="huffman encoded wav file">
+      <created>1699266085933</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699266085933</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,5 +108,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="huffman encoded wav file" />
+    <option name="LAST_COMMIT_MESSAGE" value="huffman encoded wav file" />
   </component>
 </project>
